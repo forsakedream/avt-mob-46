@@ -14,4 +14,10 @@ public class MainClassTest {
         int test_value = MainClass.getClassNumber();
         Assert.assertTrue("MainClass.getClassNumber() <= 45", (test_value > 45));
     }
+    @Test
+    public void testGetClassString(){
+        String test_string = MainClass.getClassString();
+        boolean isContainsHello = test_string.toLowerCase().contains("hello");
+        Assert.assertTrue("MainClass.getClassString() is not contains \"Hello\" or \"hello\"", isContainsHello);
+    }
 }
