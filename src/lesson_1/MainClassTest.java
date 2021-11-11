@@ -17,7 +17,7 @@ public class MainClassTest {
     @Test
     public void testGetClassString(){
         String test_string = MainClass.getClassString();
-        boolean isContainsHello = test_string.toLowerCase().contains("hello");
+        boolean isContainsHello = test_string.contains("hello") || test_string.contains("Hello");
         Assert.assertTrue("MainClass.getClassString() is not contains \"Hello\" or \"hello\"", isContainsHello);
     }
 }
