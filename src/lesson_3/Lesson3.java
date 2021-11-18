@@ -62,6 +62,19 @@ public class Lesson3 {
         waitForElementNotPresent(By.id("org.wikipedia:id/search_results_list"));
     }
 
+    @Test
+    public void testSearchResultsContainsText()
+    {
+        waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"));
+        waitForElementAndSendKeys(By.id("org.wikipedia:id/search_src_text"), "Java");
+        waitForElementPresent(By.id("org.wikipedia:id/search_results_list"));
+        List<WebElement> elements = driver.findElements(By.id("org.wikipedia:id/page_list_item_title"));
+        for (WebElement element : elements){
+            boolean isContains = element.getText().contains("Java");
+            Assert.assertTrue("Java is not found in search result!",isContains);
+        }
+    }
+
     private WebElement waitForElementPresent(By by, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
