@@ -11,8 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.security.util.Length;
 
 import java.net.URL;
+import java.util.List;
 
 public class Lesson3 {
 
@@ -48,6 +50,17 @@ public class Lesson3 {
                 "This element has other text!");
     }
 
+    @Test
+    public void testCancelSearch()
+    {
+        waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"));
+        waitForElementAndSendKeys(By.id("org.wikipedia:id/search_src_text"), "Java");
+        waitForElementPresent(By.id("org.wikipedia:id/search_results_list"));
+        List<WebElement> elements = driver.findElements(By.id("org.wikipedia:id/page_list_item_container"));
+        Assert.assertTrue("Search result count <=1 !", elements.size() > 1);
+        waitForElementAndClear(By.id("org.wikipedia:id/search_src_text"));
+        waitForElementNotPresent(By.id("org.wikipedia:id/search_results_list"));
+    }
 
     private WebElement waitForElementPresent(By by, long timeoutInSeconds)
     {
