@@ -1,0 +1,119 @@
+package lesson_3;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.net.URL;
+
+public class Lesson3 {
+
+    private AppiumDriver<WebElement> driver;
+
+    @Before
+    public void setUp() throws Exception
+    {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName","Android");
+        capabilities.setCapability("deviceName","avd1");
+        capabilities.setCapability("platformVersion","10");
+        capabilities.setCapability("automationName","Appium");
+        capabilities.setCapability("appPackage","org.wikipedia");
+        capabilities.setCapability("appActivity",".main.MainActivity");
+        capabilities.setCapability("app","/Users/dkylosov/IdeaProjects/JavaAppiumAutomation/apk/org.wikipedia.apk");
+
+        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub/"), capabilities);
+
+    }
+
+    @After
+    public void tearDown()
+    {
+        driver.quit();
+    }
+
+    @Test
+    public void testElementHasText()
+    {
+        waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"));
+        assertElementHasText(By.id("org.wikipedia:id/search_src_text"), "Search…",
+                "This element has other text!");
+    }
+
+
+    private WebElement waitForElementPresent(By by, long timeoutInSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage("Can't find element " + by + "!\n");
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    private WebElement waitForElementPresent(By by)
+    {
+        return waitForElementPresent(by, 15);
+    }
+
+    private WebElement waitForElementAndClick(By by, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, timeoutInSeconds);
+        element.click();
+        return element;
+    }
+
+    private WebElement waitForElementAndSendKeys(By by, String value, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, timeoutInSeconds);
+        element.sendKeys(value);
+        return element;
+    }
+    private WebElement waitForElementAndClick(By by)
+    {
+        return waitForElementAndClick(by, 15);
+    }
+
+    private WebElement waitForElementAndSendKeys(By by, String value)
+    {
+        return waitForElementAndSendKeys(by, value, 15);
+    }
+
+    private boolean waitForElementNotPresent(By by, long timeoutInSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage("Element "+ by + " is still present!");
+        return  wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
+    private boolean waitForElementNotPresent(By by)
+    {
+        return  waitForElementNotPresent(by, 15);
+    }
+
+    private WebElement waitForElementAndClear(By by, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, timeoutInSeconds);
+        element.clear();
+        return element;
+    }
+    private WebElement waitForElementAndClear(By by)
+    {
+        WebElement element = waitForElementPresent(by, 15);
+        element.clear();
+        return element;
+    }
+
+    private void assertElementHasText(By by, String expected, String error_message)
+    {
+        WebElement element = waitForElementPresent(by);
+        String actual = element.getText();
+        Assert.assertEquals(error_message,expected, actual);
+    }
+
+}
