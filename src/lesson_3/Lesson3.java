@@ -11,14 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.security.util.Length;
 
 import java.net.URL;
 import java.util.List;
 
 public class Lesson3 {
 
-    private AppiumDriver<WebElement> driver;
+    public AppiumDriver<WebElement> driver;
 
     @Before
     public void setUp() throws Exception
@@ -75,71 +74,77 @@ public class Lesson3 {
         }
     }
 
-    private WebElement waitForElementPresent(By by, long timeoutInSeconds)
+    public WebElement waitForElementPresent(By by, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage("Can't find element " + by + "!\n");
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    private WebElement waitForElementPresent(By by)
+    public WebElement waitForElementPresent(By by)
     {
         return waitForElementPresent(by, 15);
     }
 
-    private WebElement waitForElementAndClick(By by, long timeoutInSeconds)
+    public WebElement waitForElementAndClick(By by, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    private WebElement waitForElementAndSendKeys(By by, String value, long timeoutInSeconds)
+    public WebElement waitForElementAndSendKeys(By by, String value, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, timeoutInSeconds);
         element.sendKeys(value);
         return element;
     }
-    private WebElement waitForElementAndClick(By by)
+    public WebElement waitForElementAndClick(By by)
     {
         return waitForElementAndClick(by, 15);
     }
 
-    private WebElement waitForElementAndSendKeys(By by, String value)
+    public WebElement waitForElementAndSendKeys(By by, String value)
     {
         return waitForElementAndSendKeys(by, value, 15);
     }
 
-    private boolean waitForElementNotPresent(By by, long timeoutInSeconds)
+    public boolean waitForElementNotPresent(By by, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage("Element "+ by + " is still present!");
         return  wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    private boolean waitForElementNotPresent(By by)
+    public boolean waitForElementNotPresent(By by)
     {
         return  waitForElementNotPresent(by, 15);
     }
 
-    private WebElement waitForElementAndClear(By by, long timeoutInSeconds)
+    public WebElement waitForElementAndClear(By by, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, timeoutInSeconds);
         element.clear();
         return element;
     }
-    private WebElement waitForElementAndClear(By by)
+    public WebElement waitForElementAndClear(By by)
     {
         WebElement element = waitForElementPresent(by, 15);
         element.clear();
         return element;
     }
 
-    private void assertElementHasText(By by, String expected, String error_message)
+    public void assertElementHasText(By by, String expected, String error_message)
     {
         WebElement element = waitForElementPresent(by);
         String actual = element.getText();
         Assert.assertEquals(error_message,expected, actual);
+    }
+    public void assertElementHasText(By by, String expected)
+    {
+        WebElement element = waitForElementPresent(by);
+        String actual = element.getText();
+        Assert.assertEquals("This element has other text!",expected, actual);
     }
 
 }
