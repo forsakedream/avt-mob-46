@@ -2,6 +2,7 @@ package lesson_4;
 
 import io.appium.java_client.TouchAction;
 import lesson_3.Lesson3;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -36,6 +37,13 @@ public class Lesson4 extends Lesson3 {
         assertElementHasText(By.id("org.wikipedia:id/page_list_item_title"), "Java (programming language)");
         waitForElementAndClick(By.id("org.wikipedia:id/page_list_item_title"));
         assertElementHasText(By.id("org.wikipedia:id/view_page_title_text"), "Java (programming language)");
+    }
+
+    @Test
+    public void assertTitle(){
+        search("Appium");
+        waitForElementAndClick(By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='Appium']"));
+        assertElementPresent(By.id("org.wikipedia:id/view_page_title_text"));
     }
 
     public void swipeUp(int timeOfSwipe)
@@ -147,6 +155,11 @@ public class Lesson4 extends Lesson3 {
         String articleLocator = "//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='"+ article + "']";
         swipeElementToLeft(By.xpath(articleLocator));
         waitForElementNotPresent(By.xpath(articleLocator));
+    }
+
+    public void assertElementPresent(By by){
+        Assert.assertEquals("This page doesn't contains element " + by + " !",
+                1, driver.findElements(by).size());
     }
 
 }
