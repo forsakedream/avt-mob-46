@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.Timer;
 
 public class Lesson4 extends Lesson3 {
     @Test

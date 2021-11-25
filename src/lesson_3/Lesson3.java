@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,12 +33,17 @@ public class Lesson3 {
         capabilities.setCapability("app","/Users/dkylosov/IdeaProjects/JavaAppiumAutomation/apk/org.wikipedia.apk");
 
         driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub/"), capabilities);
+//        Чтобы наш тест с изменением ориентации экрана не сломал другие тесты,
+//        нужно в сетап и тирдаун добавить изменение ориентации на портретную.
+//        Так у нас всегда будет нужная ориентация перед началом и после выполнения теста.
+        driver.rotate(ScreenOrientation.PORTRAIT);
 
     }
 
     @After
     public void tearDown()
     {
+        driver.rotate(ScreenOrientation.PORTRAIT);
         driver.quit();
     }
 
