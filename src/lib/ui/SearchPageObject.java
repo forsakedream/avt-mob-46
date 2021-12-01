@@ -11,6 +11,7 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_INIT_ELEMENT = "//*[contains(@text, 'Search Wikipedia')]",
             SEARCH_INPUT = "org.wikipedia:id/search_src_text",
             SEARCH_RESULT_BY_TITLE_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']",
+            //    Элемент был добавлен при рефакторинге тестов в предыдущем коммите
             SEARCH_RESULT_BY_TITLE_AND_DESC_TPL = "//*[contains(@text,'{TITLE}')]/following-sibling::*[contains(@text, '{DESCRIPTION}')]",
             SEARCH_RESULTS_CONTAINER = "org.wikipedia:id/search_results_list",
             SEARCH_RESULT = "org.wikipedia:id/page_list_item_title",
@@ -27,6 +28,7 @@ public class SearchPageObject extends MainPageObject {
         return SEARCH_RESULT_BY_TITLE_TPL.replace("{TITLE}", substring);
     }
 
+    //    Метод был добавлен при рефакторинге тестов в предыдущем коммите
     private static String getSearchResultByTitleAndDesc(String title, String description)
     {
         return SEARCH_RESULT_BY_TITLE_AND_DESC_TPL.replace("{TITLE}", title).replace("{DESCRIPTION}", description);
@@ -99,6 +101,7 @@ public class SearchPageObject extends MainPageObject {
         this.waitForElementAndClick(By.xpath(search_result_xpath));
     }
 
+    //    Метод был добавлен при рефакторинге тестов в предыдущем коммите
     public WebElement waitForElementByTitleAndDescription(String title, String description)
     {
         String search_result_xpath = getSearchResultByTitleAndDesc(title, description);
@@ -120,6 +123,12 @@ public class SearchPageObject extends MainPageObject {
         initSearchInput();
         typeSearchLine(title);
         clickSearchResultByTitleAndDescription(title, description);
+    }
+
+    public int getSearchResultsAmount()
+    {
+        List<WebElement> elements = getSearchResults();
+        return elements.size();
     }
 
 }
