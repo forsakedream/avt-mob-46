@@ -1,12 +1,11 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class NavigationUI extends MainPageObject{
     public static final String
-            MY_LIST = "//android.widget.FrameLayout[@content-desc='My lists']";
+            MY_LIST = "xpath://android.widget.FrameLayout[@content-desc='My lists']";
 
     public NavigationUI(AppiumDriver<WebElement> driver)
     {
@@ -14,7 +13,7 @@ public class NavigationUI extends MainPageObject{
     }
     public void goToMyList()
     {
-        this.waitForElementAndClick(By.xpath(MY_LIST));
+        this.waitForElementAndClick(MY_LIST);
     }
 
 }

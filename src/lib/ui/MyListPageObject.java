@@ -1,15 +1,14 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class MyListPageObject extends MainPageObject{
 
     public static final String
-            LIST_TITLE = "org.wikipedia:id/item_title",
-            ARTICLE_TITLE_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']",
-            ARTICLE_TITLE = "org.wikipedia:id/page_list_item_title";
+            LIST_TITLE = "id:org.wikipedia:id/item_title",
+            ARTICLE_TITLE_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']",
+            ARTICLE_TITLE = "id:org.wikipedia:id/page_list_item_title";
 
 
     public MyListPageObject(AppiumDriver<WebElement> driver)
@@ -27,24 +26,24 @@ public class MyListPageObject extends MainPageObject{
 
     public void selectList(String list)
     {
-        this.waitForElementContainsTextAndCLick(By.id(LIST_TITLE), list);
+        this.waitForElementContainsTextAndCLick(LIST_TITLE, list);
     }
 
     public void deleteArticleFromList(String article)
     {
         String articleLocator = getArticleElementByTitle(article);
-        this.swipeElementToLeft(By.xpath(articleLocator));
-        this.waitForElementNotPresent(By.xpath(articleLocator));
+        this.swipeElementToLeft(articleLocator);
+        this.waitForElementNotPresent(articleLocator);
     }
 
     public void assertListHasArticle(String article)
     {
-        this.assertElementHasText(By.id(ARTICLE_TITLE), article);
+        this.assertElementHasText(ARTICLE_TITLE, article);
     }
 
     public void clickArticleFromList(String article)
     {
         String articleLocator = getArticleElementByTitle(article);
-        this.waitForElementAndClick(By.xpath(articleLocator));
+        this.waitForElementAndClick(articleLocator);
     }
 }
