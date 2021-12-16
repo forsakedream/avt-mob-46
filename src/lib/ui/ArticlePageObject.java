@@ -3,18 +3,10 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
-public class ArticlePageObject extends MainPageObject{
+abstract public class ArticlePageObject extends MainPageObject{
 
-    public static final String
-            FOOTER = "xpath://*[@text='View page in browser']",
-            TITLE = "id:org.wikipedia:id/view_page_title_text",
-            OPTIONS = "xpath://*[@resource-id='org.wikipedia:id/page_toolbar']//*[@content-desc='More options']",
-            ADD_TO_LIST = "xpath://*[contains(@text, 'Add to reading list')]",
-            ONBOARDING_BUTTON = "id:org.wikipedia:id/onboarding_button",
-            LIST_TITLE_FIELD = "id:org.wikipedia:id/text_input",
-            OK = "xpath://*[@text='OK']",
-            LIST_TITLE = "id:org.wikipedia:id/item_title",
-            CLOSE_BUTTON = "xpath://*[@content-desc='Navigate up']";
+    protected static String FOOTER, TITLE, OPTIONS, ADD_TO_LIST, ONBOARDING_BUTTON, LIST_TITLE_FIELD,
+            OK, LIST_TITLE, CLOSE_BUTTON;
 
     public ArticlePageObject(AppiumDriver<WebElement> driver)
     {

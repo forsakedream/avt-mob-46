@@ -153,22 +153,18 @@ public class MainPageObject {
     }
     public WebElement waitForElementAndClear(String locator)
     {
-        WebElement element = waitForElementPresent(locator, 15);
-        element.clear();
-        return element;
+        return waitForElementAndClear(locator, 15);
     }
 
     public void assertElementHasText(String locator, String expected, String error_message)
     {
         WebElement element = waitForElementPresent(locator);
-        String actual = element.getText();
-        Assert.assertEquals(error_message,expected, actual);
+        boolean isContains = element.getText().contains(expected);
+        Assert.assertTrue(error_message, isContains);
     }
     public void assertElementHasText(String locator, String expected)
     {
-        WebElement element = waitForElementPresent(locator);
-        String actual = element.getText();
-        Assert.assertEquals("This element has other text!",expected, actual);
+        assertElementHasText(locator, expected, "This element has other text!");
     }
 
     protected By getLocatorByString(String locator_with_type)

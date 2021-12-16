@@ -2,6 +2,10 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.ui.*;
+import lib.ui.factories.ArticlePageObjectFactory;
+import lib.ui.factories.MyListPageObjectFactory;
+import lib.ui.factories.NavigationUIFactory;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.openqa.selenium.By;
 
 public class article extends CoreTestCase {
@@ -17,10 +21,10 @@ public class article extends CoreTestCase {
         super.setUp();
 
         MainPageObject = new MainPageObject(driver);
-        SearchPageObject = new SearchPageObject(driver);
-        ArticlePageObject = new ArticlePageObject(driver);
-        MyListPageObject = new MyListPageObject(driver);
-        NavigationUI = new NavigationUI(driver);
+        SearchPageObject = SearchPageObjectFactory.get(driver);
+        ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        MyListPageObject = MyListPageObjectFactory.get(driver);
+        NavigationUI = NavigationUIFactory.get(driver);
     }
 
     public void testSwipeArticle()

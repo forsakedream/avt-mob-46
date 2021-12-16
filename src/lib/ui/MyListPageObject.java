@@ -3,13 +3,9 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
-public class MyListPageObject extends MainPageObject{
+abstract public class MyListPageObject extends MainPageObject{
 
-    public static final String
-            LIST_TITLE = "id:org.wikipedia:id/item_title",
-            ARTICLE_TITLE_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']",
-            ARTICLE_TITLE = "id:org.wikipedia:id/page_list_item_title";
-
+    protected static String LIST_TITLE, ARTICLE_TITLE_TPL, ARTICLE_TITLE;
 
     public MyListPageObject(AppiumDriver<WebElement> driver)
     {

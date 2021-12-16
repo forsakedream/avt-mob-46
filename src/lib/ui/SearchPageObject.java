@@ -6,15 +6,10 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class SearchPageObject extends MainPageObject {
-    public static final String
-            SEARCH_INIT_ELEMENT = "xpath://*[contains(@text, 'Search Wikipedia')]",
-            SEARCH_INPUT = "id:org.wikipedia:id/search_src_text",
-            SEARCH_RESULT_BY_TITLE_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']",
-            SEARCH_RESULT_BY_TITLE_AND_DESC_TPL = "xpath://*[contains(@text,'{TITLE}')]/following-sibling::*[contains(@text, '{DESCRIPTION}')]",
-            SEARCH_RESULTS_CONTAINER = "id:org.wikipedia:id/search_results_list",
-            SEARCH_RESULT = "id:org.wikipedia:id/page_list_item_title",
-            SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn";
+abstract public class SearchPageObject extends MainPageObject {
+    protected static String SEARCH_INIT_ELEMENT, SEARCH_INPUT, SEARCH_RESULT_BY_TITLE_TPL,
+            SEARCH_RESULT_BY_TITLE_AND_DESC_TPL, SEARCH_RESULTS_CONTAINER, SEARCH_RESULT,
+            SEARCH_CANCEL_BUTTON;
 
     public SearchPageObject(AppiumDriver<WebElement> driver)
     {
@@ -46,7 +41,7 @@ public class SearchPageObject extends MainPageObject {
     }
 
     public void assertSearchLineHasText(){
-        this.assertElementHasText(SEARCH_INPUT, "Search…",
+        this.assertElementHasText(SEARCH_INPUT, "Search",
                 "This element has other text!");
     }
 
@@ -66,10 +61,10 @@ public class SearchPageObject extends MainPageObject {
         this.waitForElementNotPresent(SEARCH_RESULTS_CONTAINER);
     }
 
-    public List<WebElement> getSearchResults()
+    public List<WebElement> getSearchResults(String search)
     {
-        waitForSearchResults();
-        By by = getLocatorByString(SEARCH_RESULT);
+        waitForSearchResult(search);
+        By by = getLocatorByString(getResultSearchElementByTitle(search));
         return driver.findElements(by);
     }
 
@@ -124,9 +119,9 @@ public class SearchPageObject extends MainPageObject {
         clickSearchResultByTitleAndDescription(title, description);
     }
 
-    public int getSearchResultsAmount()
+    public int getSearchResultsAmount(String search)
     {
-        List<WebElement> elements = getSearchResults();
+        List<WebElement> elements = getSearchResults(search);
         return elements.size();
     }
 
