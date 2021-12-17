@@ -13,7 +13,7 @@ abstract public class MyListPageObject extends MainPageObject{
     }
 
     /* TEMPLATES_METHODS */
-    private static String getArticleElementByTitle(String substring)
+    protected static String getArticleElementByTitle(String substring)
     {
         return ARTICLE_TITLE_TPL.replace("{TITLE}", substring);
     }
@@ -25,12 +25,7 @@ abstract public class MyListPageObject extends MainPageObject{
         this.waitForElementContainsTextAndCLick(LIST_TITLE, list);
     }
 
-    public void deleteArticleFromList(String article)
-    {
-        String articleLocator = getArticleElementByTitle(article);
-        this.swipeElementToLeft(articleLocator);
-        this.waitForElementNotPresent(articleLocator);
-    }
+    abstract public void deleteArticleFromList(String article);
 
     public void assertListHasArticle(String article)
     {

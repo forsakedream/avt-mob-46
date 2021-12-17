@@ -21,21 +21,6 @@ abstract public class ArticlePageObject extends MainPageObject{
         this.waitForElementPresent(TITLE);
     }
 
-    public void addArticleToNewList(String list){
-        this.waitForElementAndClick(OPTIONS);
-        this.waitForElementAndClick(ADD_TO_LIST);
-        this.waitForElementAndClick(ONBOARDING_BUTTON);
-        this.waitForElementAndClear(LIST_TITLE_FIELD);
-        this.waitForElementAndSendKeys(LIST_TITLE_FIELD, list);
-        this.waitForElementAndClick(OK);
-    }
-
-    public void addArticleToExistingList(String list){
-        this.waitForElementAndClick(OPTIONS);
-        this.waitForElementAndClick(ADD_TO_LIST);
-        this.waitForElementContainsTextAndCLick(LIST_TITLE, list);
-    }
-
     public void closeArticle(){
         this.waitForElementAndClick(CLOSE_BUTTON);
     }
@@ -46,4 +31,18 @@ abstract public class ArticlePageObject extends MainPageObject{
         assertElementHasText(TITLE, title);
     }
 
+    public void assertTitlePresent()
+    {
+        assertElementPresent(TITLE);
+    }
+
+    public void skipTutorial(){
+        String pop_up = "chain:**/XCUIElementTypeStaticText[`label == \"Tap to go back\"`]";
+        waitForElementPresent(pop_up);
+        waitForElementNotPresent(pop_up);
+    }
+
+    public abstract void addArticleToNewList(String list_title);
+
+    public abstract void addArticleToExistingList(String list_title);
 }

@@ -20,4 +20,19 @@ public class AndroidArticlePageObject extends ArticlePageObject {
     public AndroidArticlePageObject(AppiumDriver<WebElement> driver) {
         super(driver);
     }
+
+    public void addArticleToNewList(String list_title){
+        this.waitForElementAndClick(OPTIONS);
+        this.waitForElementAndClick(ADD_TO_LIST);
+        this.waitForElementAndClick(ONBOARDING_BUTTON);
+        this.waitForElementAndClear(LIST_TITLE_FIELD);
+        this.waitForElementAndSendKeys(LIST_TITLE_FIELD, list_title);
+        this.waitForElementAndClick(OK);
+    }
+
+    public void addArticleToExistingList(String list_title){
+        this.waitForElementAndClick(OPTIONS);
+        this.waitForElementAndClick(ADD_TO_LIST);
+        this.waitForElementContainsTextAndCLick(LIST_TITLE, list_title);
+    }
 }

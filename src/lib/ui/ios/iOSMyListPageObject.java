@@ -5,13 +5,27 @@ import lib.ui.MyListPageObject;
 import org.openqa.selenium.WebElement;
 
 public class iOSMyListPageObject extends MyListPageObject {
+    private static final String
+            EDIT = "chain:**/XCUIElementTypeButton[`label == \"Edit\"`]",
+            REMOVE = "chain:**/XCUIElementTypeStaticText[`label == \"Remove\"`]",
+            SELECTOR = "chain:**/XCUIElementTypeImage[`name == \"unselected\"`][2]",
+            SELECTED = "chain:**/XCUIElementTypeImage[`name == \"selected\"`]";
+
     static {
-        LIST_TITLE = "id:org.wikipedia:id/item_title";
-        ARTICLE_TITLE_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}']";
-        ARTICLE_TITLE = "id:org.wikipedia:id/page_list_item_title";
+        LIST_TITLE = "chain:**/XCUIElementTypeStaticText";
+        ARTICLE_TITLE_TPL = "chain:**/XCUIElementTypeStaticText[`label == \"{TITLE}\"`]";
+        ARTICLE_TITLE = "chain:**/XCUIElementTypeStaticText[1]";
     }
 
     public iOSMyListPageObject(AppiumDriver<WebElement> driver) {
         super(driver);
+    }
+
+    @Override
+    public void deleteArticleFromList(String article) {
+        waitForElementAndClick(EDIT);
+        waitForElementAndClick(SELECTOR);
+        waitForElementPresent(SELECTED);
+        waitForElementAndClick(REMOVE);
     }
 }

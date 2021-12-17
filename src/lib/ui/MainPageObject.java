@@ -91,7 +91,8 @@ public class MainPageObject {
         waitForElementContainsTextAndCLick(locator, value, 15);
     }
 
-    public void assertElementPresent(By by){
+    public void assertElementPresent(String locator){
+        By by = getLocatorByString(locator);
         Assert.assertEquals("This page doesn't contains element " + by + " !",
                 1, driver.findElements(by).size());
     }

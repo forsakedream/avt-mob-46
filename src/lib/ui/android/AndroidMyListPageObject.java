@@ -15,4 +15,11 @@ public class AndroidMyListPageObject extends MyListPageObject {
     public AndroidMyListPageObject(AppiumDriver<WebElement> driver) {
         super(driver);
     }
+
+    public void deleteArticleFromList(String article)
+    {
+        String articleLocator = getArticleElementByTitle(article);
+        this.swipeElementToLeft(articleLocator);
+        this.waitForElementNotPresent(articleLocator);
+    }
 }
