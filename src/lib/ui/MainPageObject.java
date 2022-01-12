@@ -125,6 +125,7 @@ public class MainPageObject {
     public WebElement waitForElementAndClick(String locator, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(locator, timeoutInSeconds);
+        System.out.println("Clicking " + locator);
         element.click();
         return element;
     }
@@ -178,6 +179,32 @@ public class MainPageObject {
     public void assertElementHasText(String locator, String expected)
     {
         assertElementHasText(locator, expected, "This element has other text!");
+    }
+
+    public long getAmountOfElements(String locator)
+    {
+        By by = getLocatorByString(locator);
+        return driver.findElements(by).size();
+    }
+
+    public boolean isElementPresent(String locator) {
+        return getAmountOfElements(locator) > 0;
+    }
+
+    public void tryClickElementWithFewAttempts(String locator, int amount_of_attemps) {
+        int current_attempts = 0;
+        boolean need_more_attempts = true;
+        while (need_more_attempts) {
+            try {
+                this.waitForElementAndClick(locator);
+                need_more_attempts = false;
+            } catch (Exception e) {
+                if (current_attempts > amount_of_attemps) {
+                    this.waitForElementAndClick(locator);
+                }
+                ++ current_attempts;
+            }
+        }
     }
 
     protected By getLocatorByString(String locator_with_type)

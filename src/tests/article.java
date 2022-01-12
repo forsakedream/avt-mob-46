@@ -7,6 +7,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import lib.ui.mobile_mw.MWNavigationUI;
 
 public class article extends CoreTestCase {
 
@@ -36,17 +37,34 @@ public class article extends CoreTestCase {
 
     public void testSaveTwoArticlesToMyList()
     {
+        if (Platform.getInstance().isMW()) {
+            NavigationUI NavigationUI = new MWNavigationUI(driver);
+            AuthPageObject AuthPageObject = new AuthPageObject(driver);
+            NavigationUI.goToLogin();
+            AuthPageObject.login("Forsakedream9", "p@ssword");
+        }
+
         SearchPageObject.searchAndSelectArticle("Appium");
         if  (Platform.getInstance().isIOS()) {ArticlePageObject.skipTutorial();}
         ArticlePageObject.waitForArticleTitle();
-        ArticlePageObject.addArticleToNewList("Learning");
-        ArticlePageObject.closeArticle();
-        SearchPageObject.searchAndSelectArticle("Java", "Object-oriented programming language");
+        if  (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToNewList("Learning");
+            ArticlePageObject.closeArticle();
+        } else {
+            ArticlePageObject.addToList();
+        }
+        SearchPageObject.searchAndSelectArticle("Java", "bject-oriented programming language");
         ArticlePageObject.waitForArticleTitle();
-        ArticlePageObject.addArticleToExistingList("Learning");
-        ArticlePageObject.closeArticle();
+        if  (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToExistingList("Learning");
+            ArticlePageObject.closeArticle();
+        } else {
+            ArticlePageObject.addToList();
+        }
         NavigationUI.goToMyList();
-        MyListPageObject.selectList("Learning");
+        if  (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
+            MyListPageObject.selectList("Learning");
+        }
         MyListPageObject.deleteArticleFromList("Appium");
         MyListPageObject.assertListHasArticle("Java (programming language)");
         MyListPageObject.clickArticleFromList("Java (programming language)");
