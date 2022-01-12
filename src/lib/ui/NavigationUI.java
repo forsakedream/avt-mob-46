@@ -14,4 +14,9 @@ abstract public class NavigationUI extends MainPageObject{
         this.waitForElementAndClick(MY_LIST);
     }
 
+    public void goToLogin()
+    {
+
+    }
+
 }

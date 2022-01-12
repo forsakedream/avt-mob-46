@@ -41,6 +41,8 @@ abstract public class ArticlePageObject extends MainPageObject{
         waitForElementNotPresent(pop_up);
     }
 
+    public void addToList() {}
+
     public abstract void addArticleToNewList(String list_title);
 
     public abstract void addArticleToExistingList(String list_title);
