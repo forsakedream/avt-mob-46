@@ -125,6 +125,7 @@ public class MainPageObject {
     public WebElement waitForElementAndClick(String locator, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(locator, timeoutInSeconds);
+        System.out.println("Clicking " + locator);
         element.click();
         return element;
     }
