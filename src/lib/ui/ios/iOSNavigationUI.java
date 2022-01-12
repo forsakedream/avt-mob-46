@@ -1,8 +1,7 @@
 package lib.ui.ios;
 
-import io.appium.java_client.AppiumDriver;
 import lib.ui.NavigationUI;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSNavigationUI extends NavigationUI {
     private static final String
@@ -13,7 +12,7 @@ public class iOSNavigationUI extends NavigationUI {
         MY_LIST = "chain:**/XCUIElementTypeButton[`label == \"Saved\"`]";
     }
 
-    public iOSNavigationUI(AppiumDriver<WebElement> driver) {
+    public iOSNavigationUI(RemoteWebDriver driver) {
         super(driver);
     }
 

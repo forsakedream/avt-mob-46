@@ -1,12 +1,11 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class NavigationUI extends MainPageObject{
     protected static String MY_LIST;
 
-    public NavigationUI(AppiumDriver<WebElement> driver)
+    public NavigationUI(RemoteWebDriver driver)
     {
         super(driver);
     }

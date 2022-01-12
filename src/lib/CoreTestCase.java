@@ -1,13 +1,12 @@
 package lib;
 
-import io.appium.java_client.AppiumDriver;
 import junit.framework.TestCase;
 import lib.ui.WelcomePageObject;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class CoreTestCase extends TestCase {
 
-    protected AppiumDriver<WebElement> driver;
+    protected RemoteWebDriver driver;
 
     @Override
     protected void setUp() throws Exception
@@ -15,6 +14,7 @@ public class CoreTestCase extends TestCase {
         super.setUp();
         driver = Platform.getInstance().getDriver();
         this.skipWelcomeScreenForIOS();
+        this.openWikiPageForMobileWeb();
     }
 
     @Override
@@ -30,6 +30,15 @@ public class CoreTestCase extends TestCase {
         {
             WelcomePageObject WelcomePage = new WelcomePageObject(driver);
             WelcomePage.skip();
+        }
+    }
+
+    protected void openWikiPageForMobileWeb()
+    {
+        if (Platform.getInstance().isMW()){
+            driver.get("https://en.m.wikipedia.org");
+        } else {
+            System.out.println("Nothing");
         }
     }
 

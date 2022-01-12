@@ -1,8 +1,7 @@
 package lib.ui.ios;
 
-import io.appium.java_client.AppiumDriver;
 import lib.ui.MyListPageObject;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSMyListPageObject extends MyListPageObject {
     private static final String
@@ -17,7 +16,7 @@ public class iOSMyListPageObject extends MyListPageObject {
         ARTICLE_TITLE = "chain:**/XCUIElementTypeStaticText[1]";
     }
 
-    public iOSMyListPageObject(AppiumDriver<WebElement> driver) {
+    public iOSMyListPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 

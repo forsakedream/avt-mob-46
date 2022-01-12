@@ -1,8 +1,7 @@
 package lib.ui.android;
 
-import io.appium.java_client.AppiumDriver;
 import lib.ui.MyListPageObject;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidMyListPageObject extends MyListPageObject {
 
@@ -12,7 +11,7 @@ public class AndroidMyListPageObject extends MyListPageObject {
         ARTICLE_TITLE = "id:org.wikipedia:id/page_list_item_title";
     }
 
-    public AndroidMyListPageObject(AppiumDriver<WebElement> driver) {
+    public AndroidMyListPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 

@@ -1,8 +1,7 @@
 package lib.ui.ios;
 
-import io.appium.java_client.AppiumDriver;
 import lib.ui.SearchPageObject;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSSearchPageObject extends SearchPageObject {
 
@@ -16,7 +15,7 @@ public class iOSSearchPageObject extends SearchPageObject {
         SEARCH_CANCEL_BUTTON = "chain:**/XCUIElementTypeButton[`label == \"Clear text\"`]";
     }
 
-    public iOSSearchPageObject(AppiumDriver<WebElement> driver) {
+    public iOSSearchPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

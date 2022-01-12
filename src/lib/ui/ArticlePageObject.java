@@ -1,14 +1,13 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class ArticlePageObject extends MainPageObject{
 
     protected static String FOOTER, TITLE, OPTIONS, ADD_TO_LIST, ONBOARDING_BUTTON, LIST_TITLE_FIELD,
             OK, LIST_TITLE, CLOSE_BUTTON;
 
-    public ArticlePageObject(AppiumDriver<WebElement> driver)
+    public ArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }

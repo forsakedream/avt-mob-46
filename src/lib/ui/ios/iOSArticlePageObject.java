@@ -1,11 +1,14 @@
 package lib.ui.ios;
 
-import io.appium.java_client.AppiumDriver;
 import static io.appium.java_client.ios.touch.IOSPressOptions.iosPressOptions;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSTouchAction;
 import static java.time.Duration.ofMillis;
+
 import lib.ui.ArticlePageObject;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
@@ -24,20 +27,25 @@ public class iOSArticlePageObject extends ArticlePageObject {
         CLOSE_BUTTON = "chain:**/XCUIElementTypeButton[`label == \"W\"`]";
     }
 
-    public iOSArticlePageObject(AppiumDriver<WebElement> driver) {
+    public iOSArticlePageObject(RemoteWebDriver driver) {
         super(driver);
+    }
+
+    public void longTap(WebElement element) {
+        AppiumDriver<WebElement> driver = (AppiumDriver) this.driver;
+        new IOSTouchAction(driver)
+                .press(iosPressOptions()
+                        .withElement(element(element))
+                        .withPressure(1))
+                .waitAction(waitOptions(ofMillis(2000)))
+                .release()
+                .perform();
     }
 
     @Override
     public void addArticleToNewList(String list_title) {
         WebElement my_lists_element = waitForElementPresent(MY_LISTS);
-        new IOSTouchAction(driver)
-                .press(iosPressOptions()
-                        .withElement(element(my_lists_element))
-                        .withPressure(1))
-                .waitAction(waitOptions(ofMillis(1000)))
-                .release()
-                .perform();
+        this.longTap(my_lists_element);
         waitForElementAndClick(CREATE_LIST);
         waitForElementAndSendKeys(LIST_TITLE_FIELD, list_title);
         waitForElementAndClick(CREATE_READING_LIST);
@@ -46,14 +54,7 @@ public class iOSArticlePageObject extends ArticlePageObject {
     @Override
     public void addArticleToExistingList(String list_title) {
         WebElement my_lists_element = waitForElementPresent(MY_LISTS);
-
-        new IOSTouchAction(driver)
-                .press(iosPressOptions()
-                        .withElement(element(my_lists_element))
-                        .withPressure(1))
-                .waitAction(waitOptions(ofMillis(2000)))
-                .release()
-                .perform();
+        this.longTap(my_lists_element);
         String EXISTING_LIST = LIST_TITLE.replace("{LIST_TITLE}", list_title);
         waitForElementAndClick(EXISTING_LIST);
     }

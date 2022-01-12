@@ -52,9 +52,9 @@ public class search extends CoreTestCase {
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(SEARCH_VALUE);
         assertTrue("There less than 3 search result!", SearchPageObject.getSearchResultsAmount(SEARCH_VALUE) >=3);
-        SearchPageObject.waitForElementByTitleAndDescription("Java", "sland");
-        SearchPageObject.waitForElementByTitleAndDescription("JavaScript", "language");
-        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
+        SearchPageObject.waitForElementByTitleAndDescription("ava", "sland");
+        SearchPageObject.waitForElementByTitleAndDescription("avaScript", "language");
+        SearchPageObject.waitForElementByTitleAndDescription("ava (programming language)", "bject-oriented programming language");
     }
 
 }
